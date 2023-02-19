@@ -1,0 +1,72 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+IMAGE_BOX = "ubuntu/xenial64"
+RAM = 1024
+CPU = 1
+VM1 = "10.0.0.10"
+VM2 = "10.0.0.11"
+VM3 = "10.0.0.12"
+host1 = "lb"
+host2 = "web1"
+host3 = "web2"
+
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", inline: "echo Hello"
+  
+# config.vm.provider "virtualbox" do |v|
+#    v.memory = RAM
+#    v.cpus = CPU
+#  end
+#  config.vm.define "lb" do |lb|
+#    lb.vm.box = "ubuntu/xenial64"
+#    config.vm.network "private_network", ip: VM1
+#    config.vm.hostname = host1
+#
+#  end
+#
+#  config.vm.define "web1" do |web1|
+#    web1.vm.box = "ubuntu/xenial64"
+#    config.vm.network "private_network", ip: VM2
+#    config.vm.hostname = host1
+#
+#  end
+#
+#  config.vm.define "web2" do |web2|
+#    web2.vm.box = "ubuntu/xenial64"
+#    config.vm.network "private_network", ip: VM3
+#    config.vm.hostname = host1
+#
+#  end
+  
+  config.vm.define "lb" do |lb|
+    lb.vm.box = IMAGE_BOX
+    lb.vm.network "private_network", ip: VM1
+    lb.vm.hostname = host1
+    lb.vm.provider "virtualbox" do |v|
+       v.memory = RAM
+       v.cpus = CPU
+    end
+  end
+
+  config.vm.define "web1" do |web1|
+    web1.vm.box = IMAGE_BOX
+    web1.vm.network "private_network", ip: VM2
+    web1.vm.hostname = host2
+    web1.vm.provider "virtualbox" do |v|
+       v.memory = RAM
+       v.cpus = CPU
+    end
+  end
+
+  config.vm.define "web2" do |web2|
+    web2.vm.box = IMAGE_BOX
+    web2.vm.network "private_network", ip: VM3
+    web2.vm.hostname = host3
+    web2.vm.provider "virtualbox" do |v|
+       v.memory = RAM
+       v.cpus = CPU
+    end
+  end
+
+end
+

@@ -1,4 +1,4 @@
 .vagrant/*
-dev1/.vagrant
+dev1/.vagrant/*
 dev1/*.log
 *.log
